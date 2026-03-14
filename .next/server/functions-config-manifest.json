@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "functions": {
+    "/api/remove-bg": {
+      "maxDuration": 30
+    }
+  }
+}

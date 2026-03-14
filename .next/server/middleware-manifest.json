@@ -1,0 +1,36 @@
+{
+  "version": 3,
+  "middleware": {},
+  "functions": {
+    "/api/remove-bg/route": {
+      "files": [
+        "server/server-reference-manifest.js",
+        "server/app/api/remove-bg/route_client-reference-manifest.js",
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/api/remove-bg/route.js"
+      ],
+      "name": "app/api/remove-bg/route",
+      "page": "/api/remove-bg/route",
+      "matchers": [
+        {
+          "regexp": "^/api/remove\\-bg$",
+          "originalSource": "/api/remove-bg"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "DV5UZ99dNeZciNO4Xi5Ze",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "KnjtZ4IStdjwxBfoJC2zD085qQajFpA6ID8qNAtQDf8=",
+        "__NEXT_PREVIEW_MODE_ID": "03a054f91fbda8c4d3f6f6b2d247413f",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "f7e614a4ed1deacf3bbabc98731dae91e82a8a144a7b1b208884752d1f826e52",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "6326753cb4c3ade4991fbe997ef50c3ce7d424b5eab1f3b72c7cad1bcbed8a69"
+      }
+    }
+  },
+  "sortedMiddleware": []
+}

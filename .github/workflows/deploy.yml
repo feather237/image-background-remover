@@ -10,29 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Cache node_modules
-        id: cache-node
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
-      - name: Install dependencies
-        if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm install --prefer-offline --no-audit --no-fund
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-
-      - name: Build
-        run: npm run build
-        env:
-          REMOVE_BG_API_KEY: ${{ secrets.REMOVE_BG_API_KEY }}
-          NODE_OPTIONS: --max-old-space-size=4096
-
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
