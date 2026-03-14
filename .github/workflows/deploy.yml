@@ -17,10 +17,9 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      - run: npx next build
         env:
           REMOVE_BG_API_KEY: ${{ secrets.REMOVE_BG_API_KEY }}
-          PATH: ${{ github.workspace }}/node_modules/.bin:$PATH
 
       - uses: cloudflare/wrangler-action@v3
         with:
