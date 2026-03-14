@@ -1,56 +1,49 @@
-# Picture Deal
+# Image Background Remover
 
-一键去除图片背景，基于 Remove.bg API + Cloudflare Workers。
+一键去除图片背景，基于 Remove.bg API + Next.js + Tailwind CSS。
 
 ## 功能
 
-- 拖拽/点击/粘贴上传图片
+- 拖拽 / 点击 / 粘贴（Ctrl+V）上传图片
 - 自动去除背景，返回透明 PNG
 - 原图与结果对比预览
 - 一键下载
 
-## 部署
-
-### 1. 安装依赖
-
-```bash
-npm install -g wrangler
-```
-
-### 2. 登录 Cloudflare
-
-```bash
-wrangler login
-```
-
-### 3. 设置 API Key
-
-在 Cloudflare Dashboard → Workers → picture-deal → Settings → Variables 中添加：
-
-```
-REMOVE_BG_API_KEY = 你的 remove.bg API Key
-```
-
-或通过命令行：
-
-```bash
-wrangler secret put REMOVE_BG_API_KEY
-```
-
-### 4. 部署
-
-```bash
-wrangler deploy
-```
-
 ## 本地开发
 
 ```bash
-wrangler dev
+# 1. 安装依赖
+npm install
+
+# 2. 配置环境变量
+cp .env.example .env.local
+# 编辑 .env.local，填入你的 Remove.bg API Key
+
+# 3. 启动开发服务器
+npm run dev
 ```
+
+访问 http://localhost:3000
+
+## 部署到 Cloudflare Pages
+
+```bash
+# 构建
+npm run build
+
+# 部署（需要先 wrangler login）
+wrangler pages deploy .next
+```
+
+在 Cloudflare Dashboard 设置环境变量 `REMOVE_BG_API_KEY`。
 
 ## 技术栈
 
-- Cloudflare Workers（边缘计算，无服务器）
-- Remove.bg API（AI 抠图）
-- 纯原生 HTML/CSS/JS 前端（内嵌在 Worker 中）
+- Next.js 15 (App Router)
+- Tailwind CSS v4
+- Remove.bg API
+- Cloudflare Pages / Workers
+
+## 需求文档
+
+见 [docs/PRD.md](./docs/PRD.md)
