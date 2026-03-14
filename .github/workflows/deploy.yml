@@ -14,13 +14,24 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm install -g npm@latest
+      - name: Cache node_modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-      - run: npm install
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm install --prefer-offline --no-audit --no-fund
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
 
-      - run: npm run build
+      - name: Build
+        run: npm run build
         env:
           REMOVE_BG_API_KEY: ${{ secrets.REMOVE_BG_API_KEY }}
+          NODE_OPTIONS: --max-old-space-size=4096
 
       - uses: cloudflare/wrangler-action@v3
         with:
