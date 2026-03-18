@@ -10,13 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install wrangler via curl
-        run: |
-          curl -fsSL https://github.com/cloudflare/workers-sdk/releases/latest/download/wrangler-linux-x64.tar.gz | tar -xz -C /usr/local/bin/
-          wrangler --version
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.11.0'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
 
       - name: Deploy to Cloudflare Pages
-        run: wrangler pages deploy .next --project-name=image-background-remover --branch=main
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy .next --project-name=image-background-remover-7ol
